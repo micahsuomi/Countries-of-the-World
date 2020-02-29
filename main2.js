@@ -8,9 +8,16 @@ const sortBtn = document.querySelector('.sort-az__btn');
 const input = document.querySelector('.countries-input');
 const warning = document.querySelector('.warning');
 
+let flag = false;
+const toggle = () => {
+  flag = !flag;
+  return flag;
+}
+
 
 const displayCountries = () => {
   countriesContainer.textContent = '';
+
   countriesList.forEach(country => {
     countriesContainer.innerHTML +=
       `<div class="country">${country}</div>`
@@ -20,6 +27,15 @@ const displayCountries = () => {
   })
 }; 
 
+
+const validateInput = () => {
+  let regex = /[A-Zaz]+$/
+  if(!input.matches(regex)) {
+    warning.textContent = 'please input only letters'
+
+  }
+
+  }
 
 startsWithBtn.addEventListener('click', startsWithLetter = () => {
   countriesContainer.textContent = '';
@@ -47,10 +63,23 @@ includesBtn.addEventListener('click', includesLetter = () => {
 });
 
 
+
 sortBtn.addEventListener('click', sortCountries = () => {
   let sorted = countriesList;
-  sorted.reverse();
-  displayCountries(sorted)
+
+  if(flag === true) {
+      sortBtn.textContent="Sort ZA";
+
+    displayCountries(sorted)
+
+} else {
+    sortBtn.textContent="Sort AZ";
+    sorted.reverse();
+
+}
+toggle();
+
+  
   //use flag, true or false to see if the array is reversed
 })
 
